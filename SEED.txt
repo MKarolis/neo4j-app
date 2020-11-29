@@ -1,0 +1,119 @@
+// Cities
+CREATE (Vilnius:City {name: "Vilnius", country: "Lithuania"})
+CREATE (Kaunas:City {name: "Kaunas", country: "Lithuania"})
+CREATE (Klaipeda:City {name: "Klaipėda", country: "Lithuania"})
+CREATE (Riga:City {name: "Riga", country: "Latvia"})
+CREATE (Tallinn:City {name: "Tallinn", country: "Estonia"})
+CREATE (Stockholm:City {name: "Stockholm", country: "Sweden"})
+CREATE (Warsaw:City {name: "Warsaw", country: "Poland"})
+CREATE (Krakow:City {name: "Krakow", country: "Poland"})
+CREATE (Berlin:City {name: "Berlin", country: "Germany"})
+CREATE (Copenhagen:City {name: "Copenhagen", country: "Denmark"})
+CREATE (Rome:City {name: "Rome", country: "Italy"})
+
+// Bus routes
+CREATE (Vilnius) -[:BUS {price: 7}]-> (Kaunas)
+CREATE (Vilnius) -[:BUS {price: 20}]-> (Riga)
+CREATE (Vilnius) -[:BUS {price: 25}]-> (Tallinn)
+CREATE (Vilnius) -[:BUS {price: 12}]-> (Warsaw)
+CREATE (Vilnius) -[:BUS {price: 17}]-> (Krakow)
+
+CREATE (Kaunas) -[:BUS {price: 7}]-> (Vilnius)
+CREATE (Kaunas) -[:BUS {price: 9}]-> (Klaipeda)
+
+CREATE (Klaipeda) -[:BUS {price: 8}]-> (Kaunas)
+CREATE (Klaipeda) -[:BUS {price: 20}]-> (Vilnius)
+
+CREATE (Riga) -[:BUS {price: 12}]-> (Tallinn)
+CREATE (Riga) -[:BUS {price: 17}]-> (Vilnius)
+CREATE (Riga) -[:BUS {price: 30}]-> (Warsaw)
+
+CREATE (Tallinn) -[:BUS {price: 15}]-> (Riga)
+CREATE (Tallinn) -[:BUS {price: 20}]-> (Vilnius)
+
+CREATE (Warsaw) -[:BUS {price: 5}]-> (Vilnius)
+CREATE (Warsaw) -[:BUS {price: 7}]-> (Kaunas)
+CREATE (Warsaw) -[:BUS {price: 3}]-> (Krakow)
+CREATE (Warsaw) -[:BUS {price: 10}]-> (Berlin)
+
+CREATE (Krakow) -[:BUS {price: 5}]-> (Warsaw)
+
+CREATE (Berlin) -[:BUS {price: 12}]-> (Warsaw)
+CREATE (Berlin) -[:BUS {price: 11}]-> (Krakow)
+CREATE (Berlin) -[:BUS {price: 15}]-> (Copenhagen)
+
+CREATE (Copenhagen) -[:BUS {price: 15}]-> (Berlin)
+CREATE (Copenhagen) -[:BUS {price: 22}]-> (Klaipeda)
+CREATE (Copenhagen) -[:BUS {price: 29}]-> (Warsaw)
+CREATE (Copenhagen) -[:BUS {price: 19}]-> (Stockholm)
+
+CREATE (Stockholm) -[:BUS {price: 20}]-> (Copenhagen)
+
+// Train Routes
+CREATE (Vilnius) -[:TRAIN {price: 12}]-> (Kaunas)
+CREATE (Vilnius) -[:TRAIN {price: 22}]-> (Riga)
+CREATE (Vilnius) -[:TRAIN {price: 20}]-> (Warsaw)
+
+CREATE (Kaunas) -[:TRAIN {price: 9}]-> (Vilnius)
+CREATE (Kaunas) -[:TRAIN {price: 12}]-> (Klaipeda)
+
+CREATE (Klaipeda) -[:TRAIN {price: 13}]-> (Kaunas)
+
+CREATE (Riga) -[:TRAIN {price: 15}]-> (Vilnius)
+
+CREATE (Warsaw) -[:TRAIN {price: 20}]-> (Vilnius)
+CREATE (Warsaw) -[:TRAIN {price: 25}]-> (Berlin)
+
+CREATE (Berlin) -[:TRAIN {price: 30}]-> (Warsaw)
+CREATE (Berlin) -[:TRAIN {price: 17}]-> (Copenhagen)
+
+CREATE (Copenhagen) -[:TRAIN {price: 17}]-> (Berlin)
+CREATE (Copenhagen) -[:TRAIN {price: 25}]-> (Stockholm)
+
+CREATE (Stockholm) -[:TRAIN {price: 22}]-> (Copenhagen)
+
+// Ferry routes
+CREATE (Klaipeda) -[:FERRY {price: 28}]-> (Stockholm)
+CREATE (Klaipeda) -[:FERRY {price: 26}]-> (Riga)
+CREATE (Klaipeda) -[:FERRY {price: 32}]-> (Tallinn)
+
+CREATE (Riga) -[:FERRY {price: 25}]-> (Klaipeda)
+CREATE (Riga) -[:FERRY {price: 18}]-> (Tallinn)
+CREATE (Riga) -[:FERRY {price: 28}]-> (Stockholm)
+
+CREATE (Tallinn) -[:FERRY {price: 25}]-> (Riga)
+CREATE (Tallinn) -[:FERRY {price: 29}]-> (Klaipeda)
+CREATE (Tallinn) -[:FERRY {price: 29}]-> (Stockholm)
+
+CREATE (Stockholm) -[:FERRY {price: 26}]-> (Riga)
+CREATE (Stockholm) -[:FERRY {price: 17}]-> (Klaipeda)
+CREATE (Stockholm) -[:FERRY {price: 25}]-> (Tallinn)
+
+// Plane routes
+CREATE (Vilnius) -[:PLANE {price: 43}]-> (Tallinn)
+CREATE (Vilnius) -[:PLANE {price: 30}]-> (Kaunas)
+CREATE (Vilnius) -[:PLANE {price: 72}]-> (Copenhagen)
+
+CREATE (Kaunas) -[:PLANE {price: 25}]-> (Berlin)
+CREATE (Kaunas) -[:PLANE {price: 57}]-> (Stockholm)
+
+CREATE (Riga) -[:PLANE {price: 57}]-> (Krakow)
+CREATE (Riga) -[:PLANE {price: 67}]-> (Stockholm)
+
+CREATE (Tallinn) -[:PLANE {price: 57}]-> (Copenhagen)
+CREATE (Tallinn) -[:PLANE {price: 69}]-> (Vilnius)
+
+CREATE (Warsaw) -[:PLANE {price: 71}]-> (Krakow)
+CREATE (Warsaw) -[:PLANE {price: 54}]-> (Copenhagen)
+
+CREATE (Berlin) -[:PLANE {price: 58}]-> (Warsaw)
+CREATE (Berlin) -[:PLANE {price: 29}]-> (Stockholm)
+CREATE (Berlin) -[:PLANE {price: 116}]-> (Rome)
+
+CREATE (Krakow) -[:PLANE {price: 98}]-> (Riga)
+
+CREATE (Copenhagen) -[:PLANE {price: 84}]-> (Vilnius)
+CREATE (Copenhagen) -[:PLANE {price: 59}]-> (Berlin)
+CREATE (Copenhagen) -[:PLANE {price: 70}]-> (Warsaw)
+
+CREATE (Rome) -[:PLANE {price: 112}]-> (Berlin)
