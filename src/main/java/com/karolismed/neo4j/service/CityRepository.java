@@ -4,6 +4,7 @@ import com.karolismed.neo4j.model.City;
 import com.karolismed.neo4j.model.CityWithConnectionCount;
 import com.karolismed.neo4j.model.Connection;
 import com.karolismed.neo4j.model.ConnectionType;
+import com.karolismed.neo4j.model.Division;
 import com.karolismed.neo4j.model.Route;
 import java.util.ArrayList;
 import java.util.List;
@@ -92,6 +93,22 @@ public class CityRepository {
         );
     }
 
+    public List<City> getCitiesManagedBy(String divisionName) {
+        Map <String, Object> params = Map.of("division", divisionName);
+
+        return session.readTransaction(
+            tx -> tx.run("MATCH (div:Division {name: $division}) -[:MANAGES] -> (c:City) RETURN c", params)
+                .list(r -> mapRecordToCity(r, "c"))
+        );
+    }
+
+    public List<Division> getDivisions() {
+        return session.readTransaction(
+            tx -> tx.run("MATCH (div:Division) -[:MANAGES] -> (c:City) RETURN div, count(c) as cityCount")
+                .list(r -> mapRecordToDivision(r, "div"))
+        );
+    }
+
     private Route mapRecordToRoute(Record record, String alias) {
         Path path = record.get(alias).asPath();
         List<Connection> connections = new ArrayList<>();
@@ -110,6 +127,13 @@ public class CityRepository {
         return Route.builder()
             .connectionList(connections)
             .totalPrice(record.get("weight").asDouble())
+            .build();
+    }
+
+    private Division mapRecordToDivision(Record record, String nodeAlias) {
+        return Division.builder()
+            .name(record.get(nodeAlias).asNode().get("name").asString())
+            .managedCityCount(record.get("cityCount").asInt())
             .build();
     }
 

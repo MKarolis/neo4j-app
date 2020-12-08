@@ -117,3 +117,21 @@ CREATE (Copenhagen) -[:PLANE {price: 59}]-> (Berlin)
 CREATE (Copenhagen) -[:PLANE {price: 70}]-> (Warsaw)
 
 CREATE (Rome) -[:PLANE {price: 112}]-> (Berlin)
+
+// Divisions
+CREATE (Alpha:Division {name: "Alpha"})
+CREATE (Beta:Division {name: "Beta"})
+CREATE (Gamma:Division {name: "Gamma"})
+CREATE (Delta:Division {name: "Delta"})
+
+CREATE (Alpha) -[:MANAGES]-> (Tallinn)
+CREATE (Alpha) -[:MANAGES]-> (Riga)
+CREATE (Alpha) -[:MANAGES]-> (Vilnius)
+CREATE (Beta) -[:MANAGES]-> (Kaunas)
+CREATE (Beta) -[:MANAGES]-> (Klaipeda)
+CREATE (Beta) -[:MANAGES]-> (Warsaw)
+CREATE (Beta) -[:MANAGES]-> (Krakow)
+CREATE (Gamma) -[:MANAGES]-> (Berlin)
+CREATE (Gamma) -[:MANAGES]-> (Copenhagen)
+CREATE (Gamma) -[:MANAGES]-> (Stockholm)
+CREATE (Delta) -[:MANAGES]-> (Rome)

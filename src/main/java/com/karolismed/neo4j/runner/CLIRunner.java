@@ -2,6 +2,7 @@ package com.karolismed.neo4j.runner;
 
 import com.karolismed.neo4j.model.City;
 import com.karolismed.neo4j.model.ConnectionType;
+import com.karolismed.neo4j.model.Division;
 import com.karolismed.neo4j.model.Route;
 import com.karolismed.neo4j.service.CityRepository;
 import com.karolismed.neo4j.service.IOService;
@@ -50,6 +51,12 @@ public class CLIRunner implements CommandLineRunner {
                     findCheapestRoute();
                     break;
                 case 6:
+                    getDivisions();
+                    break;
+                case 7:
+                    findCitiesManagedByADivision();
+                    break;
+                case 8:
                     break mainLoop;
             }
             ioService.enterToContinue();
@@ -63,7 +70,9 @@ public class CLIRunner implements CommandLineRunner {
         System.out.println("3. Find connected cities by transport type");
         System.out.println("4. Find all cities reachable from a city via transport type");
         System.out.println("5. Find cheapest route");
-        System.out.println("6. Exit");
+        System.out.println("6. Find all routes");
+        System.out.println("7. Find cities managed by a division");
+        System.out.println("8. Exit");
     }
 
     private void findAllCityData() {
@@ -156,6 +165,31 @@ public class CLIRunner implements CommandLineRunner {
         System.out.println(String.format("Cities reachable from %s via %s: ", cityName, connectionType));
         cities.forEach(
             city -> System.out.println(String.format(" - %-10s | %s", city.getName(), city.getCountry()))
+        );
+    }
+
+    private void findCitiesManagedByADivision() {
+        System.out.print("Enter division's name: ");
+        String divisionName = ioService.readLine();
+
+        List<City> cities = cityRepository.getCitiesManagedBy(divisionName);
+        if (cities.isEmpty()) {
+            System.out.println("No cities managed by " + divisionName);
+            return;
+        }
+
+        System.out.println(String.format("Cities managed by %s:", divisionName));
+        cities.forEach(
+            city -> System.out.println(String.format(" - %-10s | %s", city.getName(), city.getCountry()))
+        );
+    }
+
+    private void getDivisions() {
+        List<Division> divisions = cityRepository.getDivisions();
+
+        System.out.println("Divisions: ");
+        divisions.forEach(
+            division -> System.out.println(String.format("%-7s | Manages %s cities", division.getName(), division.getManagedCityCount()))
         );
     }
 }
